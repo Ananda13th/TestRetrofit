@@ -40,26 +40,28 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("dosen", "data kosong");
                 } else {
                     dosenArrayList = response.body();
+
+                    //Inisialisasi Recycleview
                     recyclerView = findViewById(R.id.recycler_view);
-                    adapter = new MyAdapter(dosenArrayList);
+                    adapter = new MyAdapter(dosenArrayList, getApplicationContext());
                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
                     recyclerView.setLayoutManager(layoutManager);
-
                     recyclerView.setAdapter(adapter);
+
+                    //Menampilkan Toast Saat Klik
                     adapter.setOnClick(new ClickListener() {
                         @Override
                         public void onClickListener(int idDosen) {
                             Dosen dosen = dosenArrayList.get(idDosen);
-                            Toast.makeText(MainActivity.this, "diklik "+dosen.getId(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "diklik "+dosen.getFoto(), Toast.LENGTH_SHORT).show();
                         }
                     });
-                    Log.d("dosen", "data masuk : " + response.body());
                 }
             }
 
             @Override
             public void onFailure(Call<List<Dosen>> call, Throwable t) {
-                Log.d("dosen", t.getMessage());
+                Toast.makeText(MainActivity.this, "Gagal Menyambung", Toast.LENGTH_SHORT).show();
             }
         });
 
