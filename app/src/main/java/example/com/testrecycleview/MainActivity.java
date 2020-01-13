@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import example.com.testrecycleview.API.ApiClient;
 import example.com.testrecycleview.API.ApiInterface;
+import example.com.testrecycleview.Adapter.ClickListener;
 import example.com.testrecycleview.Adapter.MyAdapter;
 import example.com.testrecycleview.Model.Dosen;
 import retrofit2.Call;
@@ -13,14 +14,18 @@ import retrofit2.Response;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private MyAdapter adapter;
-    private List<Dosen> dosenArrayList;
+    private List<Dosen> dosenArrayList = new ArrayList<>();
+    //agar tidak error waktu null
+    private ClickListener listener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +46,13 @@ public class MainActivity extends AppCompatActivity {
                     recyclerView.setLayoutManager(layoutManager);
 
                     recyclerView.setAdapter(adapter);
+                    adapter.setOnClick(new ClickListener() {
+                        @Override
+                        public void onClickListener(int idDosen) {
+                            Dosen dosen = dosenArrayList.get(idDosen);
+                            Toast.makeText(MainActivity.this, "diklik "+dosen.getId(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
                     Log.d("dosen", "data masuk : " + response.body());
                 }
             }
@@ -50,5 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("dosen", t.getMessage());
             }
         });
+
+
     }
 }
