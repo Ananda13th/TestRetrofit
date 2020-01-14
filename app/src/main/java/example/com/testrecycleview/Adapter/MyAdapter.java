@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -17,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import example.com.testrecycleview.Model.Dosen;
+import example.com.testrecycleview.Model.ResponseDosen;
 import example.com.testrecycleview.R;
 
 public class MyAdapter  extends RecyclerView.Adapter<MyAdapter.MyAdapterViewHolder> {
@@ -41,11 +41,10 @@ public class MyAdapter  extends RecyclerView.Adapter<MyAdapter.MyAdapterViewHold
     @Override
     //untuk aksi di setiap list
     public void onBindViewHolder(@NonNull MyAdapter.MyAdapterViewHolder holder, final int position) {
-        final Dosen dosen = dataList.get(position);
+        final Dosen responseDosen = dataList.get(position);
         holder.txtNama.setText(dataList.get(position).getNama());
         holder.txtId.setText(dataList.get(position).getId());
         holder.txtPelajaran.setText(dataList.get(position).getPelajaran());
-        //holder.img.setImageResource(dataList.get(position).getFoto());
         Glide.with(this.context)
                 .load(dataList.get(position).getFoto())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -79,7 +78,7 @@ public class MyAdapter  extends RecyclerView.Adapter<MyAdapter.MyAdapterViewHold
         }
     }
 
-    public void setOnClick( ClickListener listener) {
+    public void setOnClick(ClickListener listener) {
 
         this.clickListener = listener;
     }

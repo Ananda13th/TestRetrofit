@@ -7,7 +7,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
     private static Retrofit retrofit = null;
-    public static final String BASE_URL = "https://5e183ac5eaa1d2001436e0d5.mockapi.io/api/test/";
+    //public static final String BASE_URL = "https://5e183ac5eaa1d2001436e0d5.mockapi.io/api/test/";
+    public static final String BASE_URL = "https://private-8a0488-dosenapp.apiary-mock.com/";
 
     public static Retrofit getClient() {
 

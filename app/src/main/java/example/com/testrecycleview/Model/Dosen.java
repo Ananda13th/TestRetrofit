@@ -2,7 +2,7 @@ package example.com.testrecycleview.Model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Dosen {
+public class Dosen extends BaseResponse{
     @SerializedName("nama")
     private String nama;
     @SerializedName("id")
