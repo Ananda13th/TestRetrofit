@@ -29,12 +29,11 @@ public class InsertActivity extends AppCompatActivity {
         final EditText txtPelajaran = findViewById(R.id.pelajaran_txt);
         Button insert_button = findViewById(R.id.button_insertData);
 
-
         service = ApiClient.getClient().create(ApiInterface.class);
         insert_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Dosen dosen = new Dosen(txtId.toString(), txtNama.toString(), txtPelajaran.toString(), null);
+                Dosen dosen = new Dosen(txtId.getText().toString(), txtNama.getText().toString(), txtPelajaran.getText().toString(), null);
                 addDosen(dosen);
             }
         });
@@ -42,7 +41,6 @@ public class InsertActivity extends AppCompatActivity {
     }
 
     public  void addDosen(Dosen dosen) {
-
         Call<Dosen> call = service.addDosen(dosen);
         call.enqueue(new Callback<Dosen>() {
             @Override

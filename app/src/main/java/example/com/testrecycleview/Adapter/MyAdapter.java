@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -56,6 +57,13 @@ public class MyAdapter  extends RecyclerView.Adapter<MyAdapter.MyAdapterViewHold
                 clickListener.onClickListener(position);
             }
         });
+
+        holder.btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clickListener.onCLickDeleteButton(position);
+            }
+        });
     }
 
     @Override
@@ -67,12 +75,14 @@ public class MyAdapter  extends RecyclerView.Adapter<MyAdapter.MyAdapterViewHold
         private TextView txtNama, txtId, txtPelajaran;
         private CardView cardView;
         private ImageView image;
+        private Button btnDelete;
 
         public MyAdapterViewHolder(View itemView) {
             super(itemView);
             txtId = (TextView) itemView.findViewById(R.id.txt_id);
             txtNama = (TextView) itemView.findViewById(R.id.txt_nama);
             txtPelajaran = (TextView) itemView.findViewById(R.id.txt_pelajaran);
+            btnDelete = (Button) itemView.findViewById(R.id.button_delete);
             cardView = itemView.findViewById(R.id.card_view_dosen);
             image = itemView.findViewById(R.id.image_view);
         }

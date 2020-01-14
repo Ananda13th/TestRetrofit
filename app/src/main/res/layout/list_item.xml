@@ -43,6 +43,22 @@
             android:id="@+id/txt_pelajaran"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button_delete"
+            android:text="DELETE"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button_update"
+            android:layout_toRightOf="@+id/button_delete"
+            android:text="UPDATE"/>
+    </RelativeLayout>
 
     </LinearLayout>
 

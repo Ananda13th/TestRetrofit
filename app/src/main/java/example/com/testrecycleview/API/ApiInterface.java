@@ -2,6 +2,7 @@ package example.com.testrecycleview.API;
 
 import java.util.List;
 
+import example.com.testrecycleview.Model.BaseResponse;
 import example.com.testrecycleview.Model.Dosen;
 import example.com.testrecycleview.Model.ResponseDosen;
 import retrofit2.Call;
@@ -20,9 +21,9 @@ public interface ApiInterface {
     Call<Dosen> addDosen(@Body Dosen dosen);
 
     @PUT("dosens/{id}")
-    Call<Dosen> updateUser(@Path("id") int id, @Body Dosen dosen);
+    Call<Dosen> updateDosen(@Path("id") String id, @Body Dosen dosen);
 
-    @DELETE("delete/{id}")
-    Call<Dosen> deleteUser(@Path("id") int id);
+    @DELETE("dosens/{id}")
+    Call<BaseResponse> deleteDosen(@Path("id") String id);
 
 }
