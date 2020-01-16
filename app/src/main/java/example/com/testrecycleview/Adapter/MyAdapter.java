@@ -64,6 +64,13 @@ public class MyAdapter  extends RecyclerView.Adapter<MyAdapter.MyAdapterViewHold
                 clickListener.onCLickDeleteButton(position);
             }
         });
+
+        holder.btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clickListener.onClickUpdateButton(position);
+            }
+        });
     }
 
     @Override
@@ -76,6 +83,7 @@ public class MyAdapter  extends RecyclerView.Adapter<MyAdapter.MyAdapterViewHold
         private CardView cardView;
         private ImageView image;
         private Button btnDelete;
+        private Button btnUpdate;
 
         public MyAdapterViewHolder(View itemView) {
             super(itemView);
@@ -83,6 +91,7 @@ public class MyAdapter  extends RecyclerView.Adapter<MyAdapter.MyAdapterViewHold
             txtNama = (TextView) itemView.findViewById(R.id.txt_nama);
             txtPelajaran = (TextView) itemView.findViewById(R.id.txt_pelajaran);
             btnDelete = (Button) itemView.findViewById(R.id.button_delete);
+            btnUpdate = itemView.findViewById(R.id.button_update);
             cardView = itemView.findViewById(R.id.card_view_dosen);
             image = itemView.findViewById(R.id.image_view);
         }

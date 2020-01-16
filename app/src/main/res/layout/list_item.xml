@@ -16,36 +16,46 @@
         android:layout_margin="5dp"
         android:orientation="vertical"
         android:padding="5dp">
-
-        <ImageView
-            android:id="@+id/image_view"
-            android:layout_width="fill_parent"
-            android:layout_height="150dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:scaleType="centerCrop" />
-
-        <!-- TextView Nama Mahasiwa -->
-        <TextView
-            android:id="@+id/txt_id"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <!-- TextView Npm Mahasiswa -->
-        <TextView
-            android:id="@+id/txt_nama"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <!-- TextView NoHp Mahasiswa -->
-        <TextView
-            android:id="@+id/txt_pelajaran"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/image_view"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:scaleType="centerCrop"/>
+
+            <LinearLayout
+                android:layout_width="180dp"
+                android:layout_height="140dp"
+                android:orientation="vertical"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@+id/image_view">
+                <TextView
+                    android:id="@+id/txt_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/txt_nama"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/txt_pelajaran"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp">
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

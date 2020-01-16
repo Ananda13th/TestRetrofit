@@ -1,5 +1,6 @@
 package example.com.testrecycleview;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,12 +15,21 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,12 +42,10 @@ public class MainActivity extends AppCompatActivity {
     private List<Dosen> dosenArrayList;
     private ClickListener listener;
     ApiInterface service = ApiClient.getClient().create(ApiInterface.class);
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         final Button delete_button = findViewById(R.id.button_delete);
         final ApiInterface service = ApiClient.getClient().create(ApiInterface.class);
         Call<ResponseDosen> call = service.getDataDosen();
@@ -56,24 +64,31 @@ public class MainActivity extends AppCompatActivity {
                     recyclerView.setAdapter(adapter);
 
                     //Menampilkan Toast Saat Klik
-               
                     adapter.setOnClick(new ClickListener() {
                         @Override
                         public void onClickListener(int idDosen) {
                             Dosen dosen = dosenArrayList.get(idDosen);
-                            Toast.makeText(MainActivity.this, "diklik "+dosen.getNama(), Toast.LENGTH_SHORT).show();
+                            String id_dosen = dosen.getId();
+                            //Toast.makeText(MainActivity.this, "diklik "+dosen.getNama(), Toast.LENGTH_SHORT).show();
+                            detailDosen(id_dosen);
                         }
 
                         @Override
                         public void onCLickDeleteButton(int idDosen) {
                             Dosen dosen = dosenArrayList.get(idDosen);
                             String id_dosen = dosen.getId();
-                            //Toast.makeText(MainActivity.this, "diklik "+id_dosen, Toast.LENGTH_SHORT).show();
-                            deleteDosen(id_dosen);
+                            AlertDialog deleteBox = deleteConfirmation(id_dosen);
+                            deleteBox.show();
+                        }
+
+                        @Override
+                        public void onClickUpdateButton(int idDosen) {
+                            Dosen dosen = dosenArrayList.get(idDosen);
+                            String id_dosen = dosen.getId();
+                            updateDialog(id_dosen);
+
                         }
                     });
-
-//
                 }
                 else
                 {
@@ -86,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Gagal Menyambung", Toast.LENGTH_SHORT).show();
             }
         });
-        Button add_button = (Button) findViewById(R.id.button_add);
+        FloatingActionButton add_button = findViewById(R.id.fab_add);
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,4 +132,109 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void updateUser(String id, Dosen dosen){
+        Call<Dosen> call = service.updateDosen(id,dosen);
+        call.enqueue(new Callback<Dosen>() {
+            @Override
+            public void onResponse(Call<Dosen> call, Response<Dosen> response) {
+                if(response.body().getErrorCode().equals("00")){
+                    Toast.makeText(MainActivity.this, "Dosen Updated!", Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<Dosen> call, Throwable t) {
+                Log.e("ERROR: ", t.getMessage());
+            }
+        });
+    }
+
+    public void detailDosen(final String id) {
+        Call<Dosen> call = service.getDetailDosen(id);
+        call.enqueue(new Callback<Dosen>() {
+            @Override
+            public void onResponse(Call<Dosen> call, Response<Dosen> response) {
+                if(response.isSuccessful()){
+
+                    String nama = response.body().getNama().toString();
+                    String pelajaran = response.body().getPelajaran().toString();
+                    String id_dosen = response.body().getId().toString();
+                    String foto = response.body().getFoto().toString();
+                    //Toast.makeText(MainActivity.this, "Diklik" +pelajaran, Toast.LENGTH_SHORT).show();
+                    detailDialog(nama, pelajaran, id_dosen, foto);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Dosen> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private AlertDialog deleteConfirmation(final String id)
+    {
+        AlertDialog myQuittingDialogBox = new AlertDialog.Builder(this)
+                // set message, title, and icon
+                .setTitle("Delete")
+                .setMessage("Do you want to Delete")
+                .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        deleteDosen(id);
+                    }
+                })
+                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .create();
+        return myQuittingDialogBox;
+    }
+
+    public void updateDialog(final String id) {
+        // create an alert builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Edit Dosen");
+        // set the custom layout
+        final View customLayout = getLayoutInflater().inflate(R.layout.update_layout, null);
+        builder.setView(customLayout);
+        // add a button
+        builder.setPositiveButton("UPDATE", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // send data from the AlertDialog to the Activity
+                EditText editNama = customLayout.findViewById(R.id.editNama);
+                EditText editPelajaran = customLayout.findViewById(R.id.editPelajaran);
+                Dosen dosen = new Dosen(editNama.getText().toString(), id, editPelajaran.getText().toString(), null);
+                updateUser(id, dosen);
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    public void detailDialog(String nama, String pelajaran, String id,String foto) {
+        // create an alert builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // set the custom layout
+        final View customLayout = getLayoutInflater().inflate(R.layout.detail_layout, null);
+        builder.setView(customLayout);
+        // add a button
+        TextView view_nama = customLayout.findViewById(R.id.view_nama);
+        TextView view_pelajaran = customLayout.findViewById(R.id.view_pelajaran);
+        TextView view_id = customLayout.findViewById(R.id.view_id);
+        ImageView view_foto = customLayout.findViewById(R.id.view_foto);
+
+        view_nama.setText(nama);
+        view_id.setText(id);
+        view_pelajaran.setText(pelajaran);
+        Glide.with(this).load(foto)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(view_foto);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
 }

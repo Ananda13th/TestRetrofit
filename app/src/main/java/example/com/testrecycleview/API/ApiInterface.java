@@ -26,4 +26,7 @@ public interface ApiInterface {
     @DELETE("dosens/{id}")
     Call<BaseResponse> deleteDosen(@Path("id") String id);
 
+    @GET("dosens/{id}")
+    Call<Dosen> getDetailDosen(@Path("id") String id);
+
 }
