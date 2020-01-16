@@ -1,4 +1,4 @@
-package example.com.testrecycleview.Model;
+package example.com.testrecycleview.model;
 
 import java.util.List;
 

@@ -1,9 +1,9 @@
 package example.com.testrecycleview;
 
 import androidx.appcompat.app.AppCompatActivity;
-import example.com.testrecycleview.API.ApiClient;
-import example.com.testrecycleview.API.ApiInterface;
-import example.com.testrecycleview.Model.Dosen;
+import example.com.testrecycleview.api.ApiClient;
+import example.com.testrecycleview.api.ApiInterface;
+import example.com.testrecycleview.model.Dosen;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

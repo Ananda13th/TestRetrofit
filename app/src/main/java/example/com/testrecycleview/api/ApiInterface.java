@@ -1,10 +1,8 @@
-package example.com.testrecycleview.API;
+package example.com.testrecycleview.api;
 
-import java.util.List;
-
-import example.com.testrecycleview.Model.BaseResponse;
-import example.com.testrecycleview.Model.Dosen;
-import example.com.testrecycleview.Model.ResponseDosen;
+import example.com.testrecycleview.model.BaseResponse;
+import example.com.testrecycleview.model.Dosen;
+import example.com.testrecycleview.model.ResponseDosen;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;

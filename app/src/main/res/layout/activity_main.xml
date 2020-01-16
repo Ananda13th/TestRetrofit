@@ -43,6 +43,10 @@
             app:itemIconTint="@color/white"
             app:itemTextColor="@color/white"
             app:menu="@menu/navigation"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/fragmentLayout"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

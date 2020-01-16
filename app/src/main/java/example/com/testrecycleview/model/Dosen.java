@@ -1,4 +1,4 @@
-package example.com.testrecycleview.Model;
+package example.com.testrecycleview.model;
 
 import com.google.gson.annotations.SerializedName;
 

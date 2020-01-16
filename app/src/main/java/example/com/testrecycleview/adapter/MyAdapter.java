@@ -1,4 +1,4 @@
-package example.com.testrecycleview.Adapter;
+package example.com.testrecycleview.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -16,8 +16,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-import example.com.testrecycleview.Model.Dosen;
-import example.com.testrecycleview.Model.ResponseDosen;
+import example.com.testrecycleview.model.Dosen;
 import example.com.testrecycleview.R;
 
 public class MyAdapter  extends RecyclerView.Adapter<MyAdapter.MyAdapterViewHolder> {

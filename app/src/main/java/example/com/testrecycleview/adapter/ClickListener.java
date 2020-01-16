@@ -1,6 +1,4 @@
-package example.com.testrecycleview.Adapter;
-
-import example.com.testrecycleview.Model.Dosen;
+package example.com.testrecycleview.adapter;
 
 public interface ClickListener {
 
